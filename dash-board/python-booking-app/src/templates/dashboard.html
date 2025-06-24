@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <h1>Booking Dashboard</h1>
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Total Bookings</th>
+        </tr>
+        {% for i in range(data.booking_dates|length) %}
+        <tr>
+            <td>{{ data.booking_dates[i] }}</td>
+            <td>{{ data.total_bookings[i] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Bookings Over Time</h2>
+    <canvas id="bookingsChart" width="300" height="150"></canvas>
+    <script>
+        const bookingDates = JSON.parse('{{ data.booking_dates|tojson|safe }}');
+        const totalBookings = JSON.parse('{{ data.total_bookings|tojson|safe }}');
+        const ctx = document.getElementById('bookingsChart').getContext('2d');
+        const bookingsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: bookingDates,
+                datasets: [{
+                    label: 'Total Bookings',
+                    data: totalBookings,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                scales: {
+                    x: { title: { display: true, text: 'Date' } },
+                    y: { title: { display: true, text: 'Bookings' }, beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

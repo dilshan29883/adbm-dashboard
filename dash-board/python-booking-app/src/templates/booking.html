@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Booking Form</title>
+</head>
+<body>
+    <h1>Book a Movie</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.customer_name.label }}<br>
+            {{ form.customer_name(size=32) }}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}
+        </p>
+        <p>
+            {{ form.phone.label }}<br>
+            {{ form.phone(size=20) }}
+        </p>
+        <p>
+            {{ form.booking_date.label }}<br>
+            {{ form.booking_date() }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</body>
+</html>
